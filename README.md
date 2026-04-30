@@ -681,14 +681,5 @@ python prompt_engineering/few_shot_learning.py
 python prompt_engineering/generation_explanation.py
 ```
 
-## Security and Privacy
 
-This repository is designed for sensitive psychological hotline data. Follow the privacy and security requirements of your institution or ethics approval. In particular:
-
-- Do not publish raw audio, transcripts, labels, or personally identifiable information.
-- Do not commit API keys, model credentials, or private server paths.
-- Store raw and processed data outside public repositories.
-- Review all generated outputs before sharing.
-
----
 
