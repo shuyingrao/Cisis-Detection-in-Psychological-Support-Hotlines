@@ -1,0 +1,57 @@
+name: crisis_detection_hotlines
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # Python runtime
+  - python=3.10
+  - pip>=23
+
+  # Required by pydub/audio preprocessing for MP3/WAV conversion.
+  - ffmpeg
+
+  - pip:
+      # PyTorch CUDA 12.1 wheels. For CPU-only installation, remove this line
+      # and replace torch/torchaudio below with: torch==2.5.1, torchaudio==2.5.1
+      - --extra-index-url https://download.pytorch.org/whl/cu121
+
+      # Core numerical/data-processing stack
+      - numpy==1.23.5
+      - pandas==2.3.3
+      - scipy==1.15.3
+      - scikit-learn==1.7.2
+      - openpyxl==3.1.5
+      - requests==2.32.5
+
+      # TensorFlow/Keras models in deep_learning_framework/
+      - tensorflow==2.12.0
+      - keras==2.12.0
+      - h5py==3.15.1
+      - protobuf==4.25.8
+      - tensorboard==2.12.3
+
+      # PyTorch sequence models and audio embedding extraction
+      - torch==2.5.1+cu121
+      - torchaudio==2.5.1+cu121
+
+      # Pre-trained text/audio model embedding extraction
+      - transformers==4.54.0
+      - accelerate==1.10.1
+      - tokenizers==0.21.4
+      - safetensors==0.6.2
+      - huggingface-hub==0.35.0
+
+      # OpenAI embedding / LLM prompt engineering scripts
+      - openai>=1.0.0
+      - tiktoken>=0.7.0
+
+      # Audio preprocessing and VAD
+      - pydub==0.25.1
+      - pyannote.audio==3.1.1
+      - noisereduce>=3.0.0
+      - soundfile==0.12.1
+
+      # Utility packages used by scripts
+      - sympy==1.13.1
+      - tqdm==4.67.1
+      - typing-extensions==4.15.0
