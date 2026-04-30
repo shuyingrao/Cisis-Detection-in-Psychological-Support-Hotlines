@@ -85,66 +85,6 @@ Do **not** commit private API keys or credentials to version control.
 
 ---
 
-## Expected Data Layout
-
-The code expects the following data layout under `base_dir`:
-
-```text
-data/
-├── raw_audio/
-│   ├── 2022_Y/
-│   └── 2023_Y/
-├── mono_audio/
-│   ├── 2022_Y/
-│   └── 2023_Y/
-├── audio/
-│   ├── 2022_Y/
-│   └── 2023_Y/
-├── transcript/
-│   ├── 2022_Y/
-│   ├── 2023_Y/
-│   ├── transcript_2022_Y.csv
-│   ├── transcript_2022_Y.json
-│   ├── transcript_2023_Y.csv
-│   └── transcript_2023_Y.json
-├── Sentences/
-│   ├── 2022_Y/
-│   └── 2023_Y/
-├── embeddings/
-│   ├── text_embeddings_gpt_2022.csv
-│   ├── text_embeddings_gpt_2023.csv
-│   ├── text_embeddings_roberta_2022.csv
-│   ├── text_embeddings_roberta_2023.csv
-│   ├── audio_embeddings_wav2vec_2022.csv
-│   ├── audio_embeddings_wav2vec_2023.csv
-│   ├── audio_embeddings_openai_whisper_l_2022.csv
-│   └── audio_embeddings_openai_whisper_l_2023.csv
-├── labels/
-│   ├── 2022_Y.xlsx
-│   ├── 2023_Y.xlsx
-│   ├── 2022_Y.csv
-│   └── 2023_Y.csv
-├── prompts/
-│   └── prompt_01.txt
-├── finetuned_data/
-└── gpt_responses_2023_Y/
-```
-
-The deep-learning framework expects label files in Excel format by default:
-
-```text
-data/labels/2022_Y.xlsx
-data/labels/2023_Y.xlsx
-```
-
-The label sheet is expected to contain a `Subject` column and the four label columns:
-
-```text
-Subject, 情绪状态, 自杀意念, 自杀计划, 高危
-```
-
----
-
 ## Stage 1: Data Preparation (`prepare_data/`)
 
 ### 1.1 Audio Preprocessing
@@ -535,6 +475,23 @@ outputs/audio_sequence_bilstm/wav2vec/all_iterations_test_2023_multilabel_predic
 outputs/audio_sequence_transformer/openai_whisper_l/all_iterations_test_2023_multilabel_predictions.csv
 ```
 
+Column format:
+
+```text
+iteration
+Subject
+prob_情绪状态
+pred_情绪状态
+prob_自杀意念
+pred_自杀意念
+prob_自杀计划
+pred_自杀计划
+prob_高危
+pred_高危
+```
+
+The `prob_*` columns contain sigmoid probabilities. The `pred_*` columns contain binary predictions generated using the selected threshold.
+
 ---
 
 ## Stage 4: Prompt Engineering and LLM-based Prediction (`prompt_engineering/`)
@@ -625,6 +582,66 @@ Before running, configure:
 
 ---
 
+## Expected Data Layout
+
+The code expects the following data layout under `base_dir`:
+
+```text
+data/
+├── raw_audio/
+│   ├── 2022_Y/
+│   └── 2023_Y/
+├── mono_audio/
+│   ├── 2022_Y/
+│   └── 2023_Y/
+├── audio/
+│   ├── 2022_Y/
+│   └── 2023_Y/
+├── transcript/
+│   ├── 2022_Y/
+│   ├── 2023_Y/
+│   ├── transcript_2022_Y.csv
+│   ├── transcript_2022_Y.json
+│   ├── transcript_2023_Y.csv
+│   └── transcript_2023_Y.json
+├── Sentences/
+│   ├── 2022_Y/
+│   └── 2023_Y/
+├── embeddings/
+│   ├── text_embeddings_gpt_2022.csv
+│   ├── text_embeddings_gpt_2023.csv
+│   ├── text_embeddings_roberta_2022.csv
+│   ├── text_embeddings_roberta_2023.csv
+│   ├── audio_embeddings_wav2vec_2022.csv
+│   ├── audio_embeddings_wav2vec_2023.csv
+│   ├── audio_embeddings_openai_whisper_l_2022.csv
+│   └── audio_embeddings_openai_whisper_l_2023.csv
+├── labels/
+│   ├── 2022_Y.xlsx
+│   ├── 2023_Y.xlsx
+│   ├── 2022_Y.csv
+│   └── 2023_Y.csv
+├── prompts/
+│   └── prompt_01.txt
+├── finetuned_data/
+└── gpt_responses_2023_Y/
+```
+
+The deep-learning framework expects label files in Excel format by default:
+
+```text
+data/labels/2022_Y.xlsx
+data/labels/2023_Y.xlsx
+```
+
+The label sheet is expected to contain a `Subject` column and the four label columns:
+
+```text
+Subject, 情绪状态, 自杀意念, 自杀计划, 高危
+```
+
+---
+
 ## Reproducing the Default Experiment
 
 A typical end-to-end workflow is:
@@ -658,35 +675,6 @@ cd ..
 python prompt_engineering/few_shot_learning.py
 python prompt_engineering/generation_explanation.py
 ```
-
-## Output Files
-
-The current deep-learning scripts save all repeated predictions in long-format CSV files.
-
-Example:
-
-```text
-outputs/text_cnn/text-gpt/all_iterations_test_2023_multilabel_predictions.csv
-```
-
-Column format:
-
-```text
-iteration
-Subject
-prob_情绪状态
-pred_情绪状态
-prob_自杀意念
-pred_自杀意念
-prob_自杀计划
-pred_自杀计划
-prob_高危
-pred_高危
-```
-
-The `prob_*` columns contain sigmoid probabilities. The `pred_*` columns contain binary predictions generated using the selected threshold.
-
----
 
 ## Security and Privacy
 
