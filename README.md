@@ -17,9 +17,14 @@ The default experimental setting trains models on **2022** data and generates mu
 If you use this repositoryor or find this repository useful for your research or work, please cite us using the following citation:
 
 ```text
-@article{
+@article{shoham2024cpllm,
   title={Automating Multi-label Crisis Detection in Psychological Support Hotlines with Pre-trained Models},
-  ...
+  author={Rao S, Deng G, Song H, Chen Q, Luo M, Zhang Y, et al.},
+  journal={PLOS Digital Health},
+  volume={5},
+  number={4},
+  pages={e0001383},
+  year={2026}
 }
 ```
 
