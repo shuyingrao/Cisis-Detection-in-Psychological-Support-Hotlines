@@ -1,6 +1,6 @@
 # Cisis-Detection-in-Psychological-Support-Hotlines
 
-This repository contains the implementation code for **Automating Multi-label Crisis Detection in Psychological Support Hotlines with Pre-trained Models**. The project supports a full experimental workflow from raw hotline audio preparation to embedding extraction, deep-learning prediction, and LLM-based prompt engineering.
+This repository contains the implementation code for the paper titled **"Automating Multi-label Crisis Detection in Psychological Support Hotlines with Pre-trained Models"**. The project supports a full experimental workflow from raw hotline audio preparation to embedding extraction, deep-learning prediction, and LLM-based prompt engineering.
 
 The target task is **multi-label crisis detection** for psychological support hotline calls. Each call is assigned four binary labels:
 
